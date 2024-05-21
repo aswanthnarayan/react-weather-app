@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   convertTime,
   formatDate,
-  convertToUnit,
 } from "../../src/HelperFunctions";
 const ForecastSection = ({ unit, weatherData }) => {
   const [forecastByDay, setForecastByDay] = useState({});
@@ -56,7 +55,7 @@ const ForecastSection = ({ unit, weatherData }) => {
                   />
 
                   <p>
-                    {convertToUnit(item.main.temp, unit)} °
+                    {Math.floor(item.main.temp)} °
                     {unit === "metric" ? "C" : "F"}
                   </p>
                 </div>

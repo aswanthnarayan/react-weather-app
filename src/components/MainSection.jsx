@@ -1,5 +1,5 @@
 import React from "react";
-import { convertTime, convertToUnit } from "../HelperFunctions";
+import { convertTime } from "../HelperFunctions";
 import { formatDate } from "../HelperFunctions";
 import { FaThermometerEmpty } from "react-icons/fa";
 import { BiSolidDropletHalf } from "react-icons/bi";
@@ -40,13 +40,13 @@ const MainSection = ({ weatherData, unit }) => {
           />
         </div>
         <p className="text-4xl md:text-6xl">
-          {convertToUnit(temperature, unit)}°{unit === "metric" ? "C" : "F"}
+          {Math.floor(temperature)}°{unit === "metric" ? "C" : "F"}
         </p>
         <div className="flex flex-col gap-3 items-start">
           <div className="flex gap-2 items-center">
             <FaThermometerEmpty size={20} />
             <p>
-              Feels Like: {convertToUnit(main.feels_like, unit)} °
+              Feels Like: {Math.floor(main.feels_like)} °
               {unit === "metric" ? "C" : "F"}
             </p>
           </div>
