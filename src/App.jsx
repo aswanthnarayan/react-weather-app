@@ -1,21 +1,54 @@
-import { useState } from 'react'
-import './App.css'
-import InputSection from './components/InputSection'
-import MainSection from './components/MainSection'
-import ForecastSection from './components/ForecastSection'
+import { useEffect, useState } from "react";
+import "./App.css";
+import InputSection from "./components/InputSection";
+import MainSection from "./components/MainSection";
+import ForecastSection from "./components/ForecastSection";
+import axios from "axios";
+import { formatBackground } from "./HelperFunctions";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [weatherData, setWeatherData] = useState(null);
+  const [city, setCity] = useState("Kannur");
+  const [unit, setUnit] = useState("metric");
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=bfde2aaedfc8653a33faef49878e89ce&units=metric`
+        );
+
+        setWeatherData(response.data);
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
+    };
+    fetchWeather();
+  }, [city]);
+
+  const toggleToMetric = () => {
+    setUnit("metric");
+  };
+
+  const toggleToImperial = () => {
+    setUnit("imperial");
+  };
+
+  const backgroundClass = formatBackground(weatherData, unit);
 
   return (
-    <div className='mx-auto max-w-screen-lg my-4 py-5 px-4 md:px-32 bg-gradient-to-br shadow-xl shadow-slate-500 from-cyan-600 to-blue-700'>
-      <InputSection />
-      <MainSection />
-      <ForecastSection />
-      <ForecastSection />
-      <ForecastSection />
+    <div
+      className={`mx-auto max-w-screen-lg my-4 py-5 px-4 md:px-32 bg-gradient-to-br shadow-xl shadow-slate-500 ${backgroundClass}`}
+    >
+      <InputSection
+        setCity={setCity}
+        toggleToMetric={toggleToMetric}
+        toggleToImperial={toggleToImperial}
+      />
+      {weatherData && <MainSection weatherData={weatherData} unit={unit} />}
+      {weatherData && <ForecastSection unit={unit} weatherData={weatherData} />}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
