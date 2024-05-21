@@ -10,13 +10,13 @@ function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [city, setCity] = useState("Kannur");
   const [unit, setUnit] = useState("metric");
-  // const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+  const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=bfde2aaedfc8653a33faef49878e89ce&units=${unit}`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`
         );
 
         setWeatherData(response.data);
