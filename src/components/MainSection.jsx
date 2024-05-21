@@ -18,6 +18,7 @@ const MainSection = ({ weatherData, unit }) => {
   const sunset = convertTime(sys.sunset);
   const localTime = convertTime(dt);
   const currentDate = formatDate(dt);
+  
   return (
     <div className="flex flex-col gap-3 text-white">
       <div className="flex flex-col justify-center items-center gap-3 my-3 text-center">

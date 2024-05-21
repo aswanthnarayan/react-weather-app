@@ -16,7 +16,7 @@ function App() {
     const fetchWeather = async () => {
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`
         );
 
         setWeatherData(response.data);
@@ -25,7 +25,7 @@ function App() {
       }
     };
     fetchWeather();
-  }, [city]);
+  }, [city,unit]);
 
   const toggleToMetric = () => {
     setUnit("metric");
@@ -36,6 +36,8 @@ function App() {
   };
 
   const backgroundClass = formatBackground(weatherData, unit);
+
+  console.log(unit);
 
   return (
     <div
